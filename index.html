@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SharhTo'pla - Google izohlarni 3x oshiring</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  body{font-family:Inter, -apple-system, BlinkMacSystemFont, sans-serif}
+  @keyframes pulsePhone{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{transform:scale(1.02);box-shadow:0 0 0 18px rgba(34,197,94,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  .pulse{animation:pulsePhone .9s ease-out}
+</style>
+</head>
+<body class="bg-[#0f0f0f] text-white antialiased">
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-[#0f0f0f]/80 border-b border-[#1e1e1e]">
+  <div class="max-w-[1120px] mx-auto px-5 md:px-8 h-[64px] flex items-center justify-between">
+    <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-bold">S</div><span class="font-semibold">sharhtopla.uz</span><span class="ml-3 hidden md:inline-flex text-[11px] tracking-[0.14em] uppercase px-2.5 py-1 rounded-full bg-[#1e1e1e] border border-[#333] text-zinc-400">Live Demo</span></div>
+    <div class="flex items-center gap-3"><div class="hidden md:flex items-center gap-2 text-[12px] text-zinc-400"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>SMS tizimi faol</div><a href="#demo" class="h-9 px-4 rounded-full bg-white text-black text-[13px] font-medium">Sinab ko'rish</a></div>
+  </div>
+</header>
+<section class="max-w-[1120px] mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-12">
+  <div class="max-w-[720px]">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] text-[11px] text-zinc-300 mb-6"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Google izohlarni 3x oshiring — avtomatik</div>
+    <h1 class="text-[36px] md:text-[56px] font-bold tracking-tight leading-[0.95] mb-5">Har bir mamnun mijozingiz<br><span class="text-zinc-500">Google da izoh qoldiradi.</span></h1>
+    <p class="text-[16px] md:text-[18px] text-zinc-400 max-w-[560px] mb-8">sharhtopla.uz — kassadan chiqqan mijozga 10 daqiqada avtomatik SMS yuboradi. Qog'oz, QR kod, iltimos yo'q.</p>
+    <a href="#demo" class="h-[44px] px-6 rounded-full bg-white text-black font-medium text-[14px] inline-flex items-center">Jonli demoni ko'rish — 10 soniyada ↓</a>
+  </div>
+</section>
+<section id="demo" class="max-w-[1120px] mx-auto px-5 md:px-8 pb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8">
+    <div class="bg-[#1e1e1e] border border-[#333] rounded-[20px] p-5 md:p-7">
+      <h3 class="text-[18px] font-semibold mb-6">Biznesingizni sozlang</h3>
+      <div class="space-y-5">
+        <div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Biznes nomi</label><input id="bizName" value="Bella Vita Restorani" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white" /></div>
+        <div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Google izoh havolasi</label><input id="gLink" value="g.page/r/bella-vita/review" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white font-mono text-[13px]" /></div>
+        <div class="grid grid-cols-2 gap-5"><div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Mijoz ismi</label><input id="clientName" value="Azizbek" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white" /></div><div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Telefon</label><input id="clientPhone" value="+998 90 123 45 67" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white font-mono" /></div></div>
+        <button id="sendBtn" class="w-full h-[52px] rounded-[14px] font-semibold bg-[#22c55e] text-black hover:bg-[#16a34a]">📩 SMS ni sinab ko'rish</button>
+        <p id="status" class="text-[12px] text-zinc-500 text-center"></p>
+      </div>
+    </div>
+    <div class="flex justify-center lg:sticky lg:top-[88px] self-start">
+      <div id="phone" class="relative w-full max-w-[360px] rounded-[36px] bg-[#0a0a0a] border-[8px] border-[#1f1f1f] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+        <div class="h-[28px] bg-[#1f1f1f] flex items-center justify-center"><div class="w-[84px] h-[18px] bg-black rounded-full"></div></div>
+        <div class="h-[56px] bg-[#212121] flex items-center px-4 gap-3 border-b border-[#2a2a2a]"><div id="avatar" class="w-8 h-8 rounded-full bg-[#8774e1] flex items-center justify-center font-bold text-[13px]">B</div><div class="flex-1"><div id="bizTitle" class="text-[14px] font-semibold truncate">Bella Vita Restorani</div><div class="text-[11px] text-[#aaa]">oxirgi marta hozir online</div></div></div>
+        <div class="bg-[#0f1419] min-h-[520px] flex flex-col p-3">
+          <div class="flex justify-center mt-2"><span class="px-3 py-1 rounded-full bg-[#182533] text-[11px] text-[#a8b3c0]">Bugun</span></div>
+          <div class="mt-3 bg-[#182533] rounded-[18px] rounded-bl-[6px] px-4 py-3 max-w-[88%]"><p id="msgText" class="text-[14.5px] leading-[1.45] text-[#e6eef6] whitespace-pre-wrap"></p><div class="flex justify-end gap-1 mt-2"><span class="text-[11px] text-[#7d8b99]">21:25</span><span id="check" class="text-[11px] text-[#6ab2f0] hidden">✓✓</span></div></div>
+          <div class="mt-auto bg-[#212121] h-[48px] flex items-center px-3 gap-2 rounded-b-[20px]"><div class="flex-1 h-8 rounded-full bg-[#2a2a2a] flex items-center px-3 text-[13px] text-zinc-500">Xabar yozing...</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const $ = (id) => document.getElementById(id);
+  function render(){
+    const biz = $('bizName').value || 'Biznesingiz';
+    const link = $('gLink').value || 'g.page/r/...';
+    const name = $('clientName').value || 'Mijoz';
+    $('bizTitle').textContent = biz;
+    $('avatar').textContent = biz.trim()[0]?.toUpperCase() || 'B';
+    $('msgText').textContent = `Assalomu alaykum, ${name}! 👋\n\n${biz} jamoasi nomidan tashakkur! Xizmatimiz sizga yoqdimi?\n\n30 soniyada Google da izoh qoldirib, bizga katta yordam berasiz.\n\n${link}`;
+  }
+  ['bizName','gLink','clientName'].forEach(id=>$(id).addEventListener('input', render));
+  render();
+  $('sendBtn').addEventListener('click', async ()=>{
+    const phone = $('clientPhone').value;
+    const name = $('clientName').value;
+    const bizName = $('bizName').value;
+    const gLink = $('gLink').value;
+    if(!phone.trim()){ $('status').textContent='Telefon raqamni kiriting'; return; }
+    $('sendBtn').textContent='Yuborilmoqda...';
+    $('sendBtn').disabled=true;
+    try{
+      const res = await fetch('/api/send-sms', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({phone, name, bizName, gLink})});
+      const data = await res.json();
+      if(data.success){
+        $('status').textContent = data.demo ? 'Demo rejim: SMS yuborildi deb hisoblandi (Eskiz kaliti yo'q)' : 'SMS muvaffaqiyatli yuborildi!';
+        $('check').classList.remove('hidden');
+        $('phone').classList.add('pulse');
+        setTimeout(()=>{$('phone').classList.remove('pulse');},900);
+      } else { $('status').textContent='Xato: '+ (data.error||'noma'lum'); }
+    }catch(e){ $('status').textContent='Demo: '+ e.message; $('check').classList.remove('hidden'); }
+    $('sendBtn').textContent='Yuborildi ✅';
+    setTimeout(()=>{$('sendBtn').textContent='📩 SMS ni sinab ko\'rish'; $('sendBtn').disabled=false; $('status').textContent=''; $('check').classList.add('hidden');},3000);
+  });
+</script>
+</body>
+</html>
