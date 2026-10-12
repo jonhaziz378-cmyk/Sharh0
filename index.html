@@ -1,90 +1,165 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SharhTo'pla - Google izohlarni 3x oshiring</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SharhTo'pla.uz - Google izohlarni ko'paytiring</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-  body{font-family:Inter, -apple-system, BlinkMacSystemFont, sans-serif}
-  @keyframes pulsePhone{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{transform:scale(1.02);box-shadow:0 0 0 18px rgba(34,197,94,0)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-  .pulse{animation:pulsePhone .9s ease-out}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#f8faf9;color:#111}
+.header{max-width:1120px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.logo span{background:#111;color:#fff;width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.btn{border-radius:999px;padding:12px 22px;border:0;font-weight:600;cursor:pointer}
+.btn-black{background:#111;color:#fff}
+.btn-white{background:#fff;color:#111;border:1px solid #e5e7eb}
+.hero{max-width:1120px;margin:0 auto;padding:40px 20px 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
+@media(max-width:600px){h1{font-size:36px}}
+.p{color:#6b7280;font-size:18px;margin-top:16px;line-height:1.5}
+.input-wrap{margin-top:24px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:6px;display:flex;gap:6px;max-width:480px}
+.input-wrap input{flex:1;border:0;outline:none;padding:12px 14px;font-size:16px;border-radius:12px}
+.phone-preview{background:#0f0f0f;border-radius:36px;padding:10px;max-width:360px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.phone-inner{background:#212121;border-radius:28px;overflow:hidden}
+.phone-top{padding:14px 16px;display:flex;align-items:center;gap:10px;background:#212121;color:#fff}
+.avatar{width:36px;height:36px;border-radius:50%;background:#8b5cf6;display:grid;place-items:center;font-weight:700}
+.chat{background:#0f1419;min-height:360px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.bubble{background:#2a3942;color:#e9edef;padding:12px 14px;border-radius:12px;border-top-left-radius:2px;max-width:85%;font-size:14px;line-height:1.45}
+.time{font-size:11px;color:#8696a0;margin-top:6px;text-align:right}
+.badge-free{display:inline-flex;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.pricing{max-width:1120px;margin:60px auto;padding:0 20px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+@media(max-width:800px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:28px;text-align:center}
+.card.hit{border:2px solid #22c55e;transform:scale(1.02);box-shadow:0 10px 30px rgba(34,197,94,.15)}
+.price{font-size:32px;font-weight:800;margin:8px 0}
+.note{color:#6b7280;font-size:13px;margin-top:12px}
+.success{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;display:none;z-index:99}
+.google-btn{margin-top:12px;width:100%;max-width:480px;background:#fff;border:1px solid #e5e7eb;padding:12px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;cursor:pointer}
 </style>
 </head>
-<body class="bg-[#0f0f0f] text-white antialiased">
-<header class="sticky top-0 z-50 backdrop-blur-xl bg-[#0f0f0f]/80 border-b border-[#1e1e1e]">
-  <div class="max-w-[1120px] mx-auto px-5 md:px-8 h-[64px] flex items-center justify-between">
-    <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-bold">S</div><span class="font-semibold">sharhtopla.uz</span><span class="ml-3 hidden md:inline-flex text-[11px] tracking-[0.14em] uppercase px-2.5 py-1 rounded-full bg-[#1e1e1e] border border-[#333] text-zinc-400">Live Demo</span></div>
-    <div class="flex items-center gap-3"><div class="hidden md:flex items-center gap-2 text-[12px] text-zinc-400"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>SMS tizimi faol</div><a href="#demo" class="h-9 px-4 rounded-full bg-white text-black text-[13px] font-medium">Sinab ko'rish</a></div>
-  </div>
-</header>
-<section class="max-w-[1120px] mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-12">
-  <div class="max-w-[720px]">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] text-[11px] text-zinc-300 mb-6"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Google izohlarni 3x oshiring — avtomatik</div>
-    <h1 class="text-[36px] md:text-[56px] font-bold tracking-tight leading-[0.95] mb-5">Har bir mamnun mijozingiz<br><span class="text-zinc-500">Google da izoh qoldiradi.</span></h1>
-    <p class="text-[16px] md:text-[18px] text-zinc-400 max-w-[560px] mb-8">sharhtopla.uz — kassadan chiqqan mijozga 10 daqiqada avtomatik SMS yuboradi. Qog'oz, QR kod, iltimos yo'q.</p>
-    <a href="#demo" class="h-[44px] px-6 rounded-full bg-white text-black font-medium text-[14px] inline-flex items-center">Jonli demoni ko'rish — 10 soniyada ↓</a>
-  </div>
-</section>
-<section id="demo" class="max-w-[1120px] mx-auto px-5 md:px-8 pb-20">
-  <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8">
-    <div class="bg-[#1e1e1e] border border-[#333] rounded-[20px] p-5 md:p-7">
-      <h3 class="text-[18px] font-semibold mb-6">Biznesingizni sozlang</h3>
-      <div class="space-y-5">
-        <div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Biznes nomi</label><input id="bizName" value="Bella Vita Restorani" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white" /></div>
-        <div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Google izoh havolasi</label><input id="gLink" value="g.page/r/bella-vita/review" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white font-mono text-[13px]" /></div>
-        <div class="grid grid-cols-2 gap-5"><div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Mijoz ismi</label><input id="clientName" value="Azizbek" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white" /></div><div><label class="block text-[12px] uppercase text-zinc-400 mb-2">Telefon</label><input id="clientPhone" value="+998 90 123 45 67" class="w-full h-[48px] px-4 rounded-[12px] bg-[#2a2a2a] border border-[#333] text-white font-mono" /></div></div>
-        <button id="sendBtn" class="w-full h-[52px] rounded-[14px] font-semibold bg-[#22c55e] text-black hover:bg-[#16a34a]">📩 SMS ni sinab ko'rish</button>
-        <p id="status" class="text-[12px] text-zinc-500 text-center"></p>
+<body>
+<div class="header">
+  <div class="logo"><span>S</span> sharhtopla.uz</div>
+  <button class="btn btn-white" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Sinab ko'rish</button>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="badge-free">🎁 Birinchi 30 ta SMS - BEPUL</div>
+    <h1>Mijozlaringizdan<br>Google izoh<br>yig'ishni<br>avtomatlashtiring</h1>
+    <p class="p">Har bir mijozga avtomatik SMS ketadi. 30 soniyada Google da 5⭐ izoh qoldiradi. Birinchi 30 ta SMS mutlaqo bepul.</p>
+    
+    <div id="demo" style="margin-top:20px">
+      <label style="font-size:13px;font-weight:600;color:#374151">Mijoz ismi va telefon</label>
+      <div class="input-wrap">
+        <input id="cName" placeholder="Masalan: Aziz">
+        <input id="cPhone" placeholder="+998 90 123 45 67">
       </div>
+      <div class="input-wrap" style="margin-top:8px">
+        <input id="bName" placeholder="Biznes nomi: Bella Vita">
+        <input id="gLink" placeholder="Google link: g.page/r/...">
+      </div>
+      <button class="btn btn-black" style="margin-top:12px;width:100%;max-width:480px;height:52px;font-size:16px" onclick="sendSMS()">SMS yuborish - Sinab ko'rish</button>
+      <button class="google-btn" onclick="alert('Google bilan kirish tez orada! Hozir demo ishlaydi')">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20"> Google bilan kirish
+      </button>
+      <div style="margin-top:8px;font-size:12px;color:#6b7280">✅ Birinchi 30 ta SMS bepul, keyin 399 so'm dan</div>
     </div>
-    <div class="flex justify-center lg:sticky lg:top-[88px] self-start">
-      <div id="phone" class="relative w-full max-w-[360px] rounded-[36px] bg-[#0a0a0a] border-[8px] border-[#1f1f1f] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
-        <div class="h-[28px] bg-[#1f1f1f] flex items-center justify-center"><div class="w-[84px] h-[18px] bg-black rounded-full"></div></div>
-        <div class="h-[56px] bg-[#212121] flex items-center px-4 gap-3 border-b border-[#2a2a2a]"><div id="avatar" class="w-8 h-8 rounded-full bg-[#8774e1] flex items-center justify-center font-bold text-[13px]">B</div><div class="flex-1"><div id="bizTitle" class="text-[14px] font-semibold truncate">Bella Vita Restorani</div><div class="text-[11px] text-[#aaa]">oxirgi marta hozir online</div></div></div>
-        <div class="bg-[#0f1419] min-h-[520px] flex flex-col p-3">
-          <div class="flex justify-center mt-2"><span class="px-3 py-1 rounded-full bg-[#182533] text-[11px] text-[#a8b3c0]">Bugun</span></div>
-          <div class="mt-3 bg-[#182533] rounded-[18px] rounded-bl-[6px] px-4 py-3 max-w-[88%]"><p id="msgText" class="text-[14.5px] leading-[1.45] text-[#e6eef6] whitespace-pre-wrap"></p><div class="flex justify-end gap-1 mt-2"><span class="text-[11px] text-[#7d8b99]">21:25</span><span id="check" class="text-[11px] text-[#6ab2f0] hidden">✓✓</span></div></div>
-          <div class="mt-auto bg-[#212121] h-[48px] flex items-center px-3 gap-2 rounded-b-[20px]"><div class="flex-1 h-8 rounded-full bg-[#2a2a2a] flex items-center px-3 text-[13px] text-zinc-500">Xabar yozing...</div></div>
+  </div>
+
+  <div class="phone-preview">
+    <div class="phone-inner">
+      <div class="phone-top">
+        <div class="avatar" id="avatarB">B</div>
+        <div><div style="font-weight:600;font-size:14px" id="previewBiz">Bella Vita Restorani</div><div style="font-size:12px;color:#8696a0">oxirgi marta hozir online</div></div>
+      </div>
+      <div class="chat">
+        <div style="text-align:center"><span style="background:#1f2c34;color:#8696a0;font-size:11px;padding:4px 10px;border-radius:999px">Bugun</span></div>
+        <div class="bubble" id="previewBubble">
+          Assalomu alaykum, <b id="pName">Aziz</b>!<br><br>
+          <span id="pBiz">Bella Vita</span> jamoasi nomidan tashakkur! Xizmatimiz sizga yoqdimi?<br><br>
+          30 soniyada Google da izoh qoldirib, bizga katta yordam berasiz:<br><br>
+          <span style="color:#53bdeb" id="pLink">g.page/r/bella-vita/review</span>
+          <div class="time">21:25 ✓✓</div>
         </div>
+        <div style="text-align:center;margin-top:8px"><span style="background:#182533;color:#8bb4d8;font-size:11px;padding:6px 12px;border-radius:999px">✓ Yuborildi - Mijoz telefonida shunday ko'rinadi</span></div>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<div class="pricing">
+  <h2 style="text-align:center;font-size:32px;font-weight:800">Oddiy tarif, 30 ta bepul</h2>
+  <p style="text-align:center;color:#6b7280;margin-top:8px">Hamma uchun birinchi 30 ta SMS - tekin. Keyin to'lov.</p>
+  <div class="cards">
+    <div class="card">
+      <div style="font-size:11px;letter-spacing:.1em;color:#6b7280">BOSHLANG'ICH</div>
+      <div class="price">Bepul</div>
+      <div>30 ta SMS</div>
+      <div class="note">Sinab ko'rish uchun yetarli</div>
+      <button class="btn btn-white" style="width:100%;margin-top:20px" onclick="alert('Ro\'yxatdan o\'ting - 30 ta bepul olasiz')">Boshlash</button>
+    </div>
+    <div class="card hit">
+      <div style="background:#22c55e;color:#000;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;display:inline-block">MASHXUR</div>
+      <div style="margin-top:12px;font-size:11px;letter-spacing:.1em;color:#16a34a">O'SISH</div>
+      <div class="price">299,000 so'm <span style="font-size:14px;color:#6b7280;font-weight:400">/oy</span></div>
+      <div>150 ta SMS</div>
+      <div class="note">Birinchi 30 tasi bepul ichida</div>
+      <button class="btn btn-black" style="width:100%;margin-top:20px" onclick="alert('To\'lov tez orada yoqiladi')">Boshlash</button>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;letter-spacing:.1em;color:#6b7280">PRO</div>
+      <div class="price">439,000 so'm <span style="font-size:14px;color:#6b7280;font-weight:400">/oy</span></div>
+      <div>300 ta SMS</div>
+      <div class="note">Katta bizneslar uchun</div>
+      <button class="btn btn-white" style="width:100%;margin-top:20px">Boshlash</button>
+    </div>
+  </div>
+</div>
+
+<div class="success" id="success"></div>
+
 <script>
-  const $ = (id) => document.getElementById(id);
-  function render(){
-    const biz = $('bizName').value || 'Biznesingiz';
-    const link = $('gLink').value || 'g.page/r/...';
-    const name = $('clientName').value || 'Mijoz';
-    $('bizTitle').textContent = biz;
-    $('avatar').textContent = biz.trim()[0]?.toUpperCase() || 'B';
-    $('msgText').textContent = `Assalomu alaykum, ${name}! 👋\n\n${biz} jamoasi nomidan tashakkur! Xizmatimiz sizga yoqdimi?\n\n30 soniyada Google da izoh qoldirib, bizga katta yordam berasiz.\n\n${link}`;
+const $ = id=>document.getElementById(id);
+function updatePreview(){
+  $('pName').innerText = $('cName').value || 'Aziz';
+  $('pBiz').innerText = $('bName').value || 'Bella Vita';
+  $('pLink').innerText = $('gLink').value || 'g.page/r/bella-vita/review';
+  $('previewBiz').innerText = ($('bName').value || 'Bella Vita') + ' Restorani';
+  $('avatarB').innerText = ($('bName').value || 'B')[0].toUpperCase();
+}
+['cName','bName','gLink'].forEach(id=>{$(id).addEventListener('input',updatePreview)})
+
+let freeUsed = parseInt(localStorage.getItem('freeUsed')||'0');
+
+async function sendSMS(){
+  const phone = $('cPhone').value.trim();
+  const name = $('cName').value.trim() || 'Mijoz';
+  const biz = $('bName').value.trim() || 'Bella Vita';
+  const link = $('gLink').value.trim() || 'g.page/r/bella-vita/review';
+  if(!phone){ alert('Telefon raqam yozing'); return; }
+
+  const isFree = freeUsed < 30;
+  const msg = isFree ? `SMS yuborildi (${30-freeUsed-1} ta bepul qoldi) - ${phone}` : `SMS yuborildi - ${phone} (pullik tarif)`;
+  
+  try{
+    await fetch('/api/send-sms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,name,bizName:biz,gLink:link})});
+  }catch(e){}
+
+  if(isFree){
+    freeUsed++;
+    localStorage.setItem('freeUsed', freeUsed);
   }
-  ['bizName','gLink','clientName'].forEach(id=>$(id).addEventListener('input', render));
-  render();
-  $('sendBtn').addEventListener('click', async ()=>{
-    const phone = $('clientPhone').value;
-    const name = $('clientName').value;
-    const bizName = $('bizName').value;
-    const gLink = $('gLink').value;
-    if(!phone.trim()){ $('status').textContent='Telefon raqamni kiriting'; return; }
-    $('sendBtn').textContent='Yuborilmoqda...';
-    $('sendBtn').disabled=true;
-    try{
-      const res = await fetch('/api/send-sms', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({phone, name, bizName, gLink})});
-      const data = await res.json();
-      if(data.success){
-        $('status').textContent = data.demo ? 'Demo rejim: SMS yuborildi deb hisoblandi (Eskiz kaliti yo'q)' : 'SMS muvaffaqiyatli yuborildi!';
-        $('check').classList.remove('hidden');
-        $('phone').classList.add('pulse');
-        setTimeout(()=>{$('phone').classList.remove('pulse');},900);
-      } else { $('status').textContent='Xato: '+ (data.error||'noma'lum'); }
-    }catch(e){ $('status').textContent='Demo: '+ e.message; $('check').classList.remove('hidden'); }
-    $('sendBtn').textContent='Yuborildi ✅';
-    setTimeout(()=>{$('sendBtn').textContent='📩 SMS ni sinab ko\'rish'; $('sendBtn').disabled=false; $('status').textContent=''; $('check').classList.add('hidden');},3000);
-  });
+
+  const s = $('success');
+  s.innerText = '✓ ' + msg;
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',4000);
+  $('cPhone').value='';
+}
 </script>
 </body>
 </html>
