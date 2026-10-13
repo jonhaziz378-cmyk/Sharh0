@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SharhTo'pla.uz - Google izohlarni ko'paytiring</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
 body{background:#f8faf9;color:#111}
@@ -12,6 +13,7 @@ body{background:#f8faf9;color:#111}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
 .logo span{background:#111;color:#fff;width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
 .btn{border-radius:999px;padding:12px 22px;border:0;font-weight:600;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:not-allowed}
 .btn-black{background:#111;color:#fff}
 .btn-white{background:#fff;color:#111;border:1px solid #e5e7eb}
 .hero{max-width:1120px;margin:0 auto;padding:40px 20px 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
@@ -20,13 +22,13 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
 @media(max-width:600px){h1{font-size:36px}}
 .p{color:#6b7280;font-size:18px;margin-top:16px;line-height:1.5}
 .input-wrap{margin-top:24px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:6px;display:flex;gap:6px;max-width:480px}
-.input-wrap input{flex:1;border:0;outline:none;padding:12px 14px;font-size:16px;border-radius:12px}
+.input-wrap input{flex:1;min-width:0;border:0;outline:none;padding:12px 14px;font-size:16px;border-radius:12px}
 .phone-preview{background:#0f0f0f;border-radius:36px;padding:10px;max-width:360px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .phone-inner{background:#212121;border-radius:28px;overflow:hidden}
 .phone-top{padding:14px 16px;display:flex;align-items:center;gap:10px;background:#212121;color:#fff}
 .avatar{width:36px;height:36px;border-radius:50%;background:#8b5cf6;display:grid;place-items:center;font-weight:700}
 .chat{background:#0f1419;min-height:360px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.bubble{background:#2a3942;color:#e9edef;padding:12px 14px;border-radius:12px;border-top-left-radius:2px;max-width:85%;font-size:14px;line-height:1.45}
+.bubble{background:#2a3942;color:#e9edef;padding:12px 14px;border-radius:12px;border-top-left-radius:2px;max-width:85%;font-size:14px;line-height:1.45;word-break:break-word}
 .time{font-size:11px;color:#8696a0;margin-top:6px;text-align:right}
 .badge-free{display:inline-flex;background:#dcfce7;color:#166534;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:12px}
 .pricing{max-width:1120px;margin:60px auto;padding:0 20px}
@@ -36,8 +38,10 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
 .card.hit{border:2px solid #22c55e;transform:scale(1.02);box-shadow:0 10px 30px rgba(34,197,94,.15)}
 .price{font-size:32px;font-weight:800;margin:8px 0}
 .note{color:#6b7280;font-size:13px;margin-top:12px}
-.success{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;display:none;z-index:99}
-.google-btn{margin-top:12px;width:100%;max-width:480px;background:#fff;border:1px solid #e5e7eb;padding:12px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;cursor:pointer}
+.success{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;display:none;z-index:99;max-width:92vw;text-align:center}
+.success.err{background:#b91c1c}
+.google-btn{margin-top:12px;width:100%;max-width:480px;background:#fff;border:1px solid #e5e7eb;padding:12px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;cursor:pointer;font-size:15px}
+.quota{margin-top:8px;font-size:12px;color:#6b7280}
 </style>
 </head>
 <body>
@@ -51,22 +55,22 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
     <div class="badge-free">🎁 Birinchi 30 ta SMS - BEPUL</div>
     <h1>Mijozlaringizdan<br>Google izoh<br>yig'ishni<br>avtomatlashtiring</h1>
     <p class="p">Har bir mijozga avtomatik SMS ketadi. 30 soniyada Google da 5⭐ izoh qoldiradi. Birinchi 30 ta SMS mutlaqo bepul.</p>
-    
+
     <div id="demo" style="margin-top:20px">
       <label style="font-size:13px;font-weight:600;color:#374151">Mijoz ismi va telefon</label>
       <div class="input-wrap">
         <input id="cName" placeholder="Masalan: Aziz">
-        <input id="cPhone" placeholder="+998 90 123 45 67">
+        <input id="cPhone" type="tel" placeholder="+998 90 123 45 67">
       </div>
       <div class="input-wrap" style="margin-top:8px">
         <input id="bName" placeholder="Biznes nomi: Bella Vita">
         <input id="gLink" placeholder="Google link: g.page/r/...">
       </div>
-      <button class="btn btn-black" style="margin-top:12px;width:100%;max-width:480px;height:52px;font-size:16px" onclick="sendSMS()">SMS yuborish - Sinab ko'rish</button>
-      <button class="google-btn" onclick="alert('Google bilan kirish tez orada! Hozir demo ishlaydi')">
-        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20"> Google bilan kirish
+      <button id="sendBtn" class="btn btn-black" style="margin-top:12px;width:100%;max-width:480px;height:52px;font-size:16px" onclick="sendSMS()">SMS yuborish</button>
+      <button class="google-btn" id="gBtn" onclick="toggleAuth()">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt=""> <span id="gBtnText">Google bilan kirish</span>
       </button>
-      <div style="margin-top:8px;font-size:12px;color:#6b7280">✅ Birinchi 30 ta SMS bepul, keyin 399 so'm dan</div>
+      <div class="quota" id="quota">✅ Birinchi 30 ta SMS bepul. SMS yuborish uchun avval Google bilan kiring.</div>
     </div>
   </div>
 
@@ -74,7 +78,7 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
     <div class="phone-inner">
       <div class="phone-top">
         <div class="avatar" id="avatarB">B</div>
-        <div><div style="font-weight:600;font-size:14px" id="previewBiz">Bella Vita Restorani</div><div style="font-size:12px;color:#8696a0">oxirgi marta hozir online</div></div>
+        <div><div style="font-weight:600;font-size:14px" id="previewBiz">Bella Vita</div><div style="font-size:12px;color:#8696a0">oxirgi marta hozir online</div></div>
       </div>
       <div class="chat">
         <div style="text-align:center"><span style="background:#1f2c34;color:#8696a0;font-size:11px;padding:4px 10px;border-radius:999px">Bugun</span></div>
@@ -85,7 +89,7 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
           <span style="color:#53bdeb" id="pLink">g.page/r/bella-vita/review</span>
           <div class="time">21:25 ✓✓</div>
         </div>
-        <div style="text-align:center;margin-top:8px"><span style="background:#182533;color:#8bb4d8;font-size:11px;padding:6px 12px;border-radius:999px">✓ Yuborildi - Mijoz telefonida shunday ko'rinadi</span></div>
+        <div style="text-align:center;margin-top:8px"><span style="background:#182533;color:#8bb4d8;font-size:11px;padding:6px 12px;border-radius:999px">Mijoz telefonida shunday ko'rinadi</span></div>
       </div>
     </div>
   </div>
@@ -100,7 +104,7 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
       <div class="price">Bepul</div>
       <div>30 ta SMS</div>
       <div class="note">Sinab ko'rish uchun yetarli</div>
-      <button class="btn btn-white" style="width:100%;margin-top:20px" onclick="alert('Ro\'yxatdan o\'ting - 30 ta bepul olasiz')">Boshlash</button>
+      <button class="btn btn-white" style="width:100%;margin-top:20px" onclick="startFree()">Boshlash</button>
     </div>
     <div class="card hit">
       <div style="background:#22c55e;color:#000;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;display:inline-block">MASHXUR</div>
@@ -108,14 +112,14 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
       <div class="price">299,000 so'm <span style="font-size:14px;color:#6b7280;font-weight:400">/oy</span></div>
       <div>150 ta SMS</div>
       <div class="note">Birinchi 30 tasi bepul ichida</div>
-      <button class="btn btn-black" style="width:100%;margin-top:20px" onclick="alert('To\'lov tez orada yoqiladi')">Boshlash</button>
+      <button class="btn btn-black" style="width:100%;margin-top:20px" onclick="paidSoon()">Boshlash</button>
     </div>
     <div class="card">
       <div style="font-size:11px;letter-spacing:.1em;color:#6b7280">PRO</div>
       <div class="price">439,000 so'm <span style="font-size:14px;color:#6b7280;font-weight:400">/oy</span></div>
       <div>300 ta SMS</div>
       <div class="note">Katta bizneslar uchun</div>
-      <button class="btn btn-white" style="width:100%;margin-top:20px">Boshlash</button>
+      <button class="btn btn-white" style="width:100%;margin-top:20px" onclick="paidSoon()">Boshlash</button>
     </div>
   </div>
 </div>
@@ -123,42 +127,149 @@ h1{font-size:52px;line-height:0.95;letter-spacing:-0.04em;font-weight:800}
 <div class="success" id="success"></div>
 
 <script>
-const $ = id=>document.getElementById(id);
-function updatePreview(){
-  $('pName').innerText = $('cName').value || 'Aziz';
-  $('pBiz').innerText = $('bName').value || 'Bella Vita';
-  $('pLink').innerText = $('gLink').value || 'g.page/r/bella-vita/review';
-  $('previewBiz').innerText = ($('bName').value || 'Bella Vita') + ' Restorani';
-  $('avatarB').innerText = ($('bName').value || 'B')[0].toUpperCase();
-}
-['cName','bName','gLink'].forEach(id=>{$(id).addEventListener('input',updatePreview)})
+const $ = id => document.getElementById(id);
 
-let freeUsed = parseInt(localStorage.getItem('freeUsed')||'0');
+/* ====== SOZLAMA: Supabase > Settings > API dan oling ====== */
+const SUPABASE_URL = 'SIZNING_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'SIZNING_ANON_KEY';
+/* service_role kalitni BU YERGA QO'YMANG */
+const FREE_LIMIT = 30;
+
+const configured = !SUPABASE_URL.startsWith('SIZNING') && !SUPABASE_ANON_KEY.startsWith('SIZNING');
+const sb = configured ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+let session = null;
+
+function toast(text, isError){
+  const s = $('success');
+  s.className = 'success' + (isError ? ' err' : '');
+  s.innerText = (isError ? '✕ ' : '✓ ') + text;
+  s.style.display = 'block';
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => s.style.display = 'none', 5000);
+}
+
+/* ---------- Oldindan ko'rish (preview) ---------- */
+function updatePreview(){
+  const biz = $('bName').value.trim() || 'Bella Vita';
+  $('pName').innerText = $('cName').value.trim() || 'Aziz';
+  $('pBiz').innerText = biz;
+  $('pLink').innerText = $('gLink').value.trim() || 'g.page/r/bella-vita/review';
+  $('previewBiz').innerText = biz;
+  $('avatarB').innerText = biz[0].toUpperCase();
+}
+['cName','bName','gLink'].forEach(id => $(id).addEventListener('input', updatePreview));
+
+/* ---------- Kirish (Google) ---------- */
+async function googleLogin(){
+  if(!sb){ toast('Supabase kalitlari kiritilmagan (index.html boshidagi SOZLAMA)', true); return; }
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin }
+  });
+  if(error) toast(error.message, true);
+}
+
+async function logout(){
+  await sb.auth.signOut();
+  session = null;
+  await refreshAuth();
+}
+
+function toggleAuth(){
+  if(session) logout(); else googleLogin();
+}
+
+async function refreshAuth(){
+  if(!sb) return;
+  const { data } = await sb.auth.getSession();
+  session = data.session;
+  if(!session){
+    $('gBtnText').innerText = 'Google bilan kirish';
+    $('quota').innerText = '✅ Birinchi 30 ta SMS bepul. SMS yuborish uchun avval Google bilan kiring.';
+    return;
+  }
+  $('gBtnText').innerText = '✓ ' + session.user.email + ' (chiqish)';
+  const { data: prof } = await sb.from('profiles')
+    .select('free_used, sms_balance')
+    .eq('id', session.user.id)
+    .maybeSingle();
+  if(prof){
+    const left = Math.max(0, FREE_LIMIT - prof.free_used);
+    $('quota').innerText = '✅ Bepul SMS qoldi: ' + left + ' ta' + (prof.sms_balance > 0 ? ' | Pullik balans: ' + prof.sms_balance + ' ta' : '');
+  } else {
+    $('quota').innerText = '✅ Tizimga kirdingiz.';
+  }
+}
+
+if(sb){
+  sb.auth.onAuthStateChange(() => { refreshAuth(); });
+  refreshAuth();
+}
+
+/* ---------- Tarif tugmalari ---------- */
+function startFree(){
+  if(session){
+    document.getElementById('demo').scrollIntoView({behavior:'smooth'});
+  } else {
+    googleLogin();
+  }
+}
+function paidSoon(){
+  toast("Pullik tarif to'lovi hali ulanmagan. Hozircha bepul 30 ta SMS dan foydalaning.", true);
+}
+
+/* ---------- SMS yuborish ---------- */
+function normalizePhone(raw){
+  let d = raw.replace(/\D/g, '');
+  if(d.length === 9) d = '998' + d;
+  return (/^998\d{9}$/.test(d)) ? d : null;
+}
 
 async function sendSMS(){
-  const phone = $('cPhone').value.trim();
+  if(!sb){ toast('Supabase kalitlari kiritilmagan', true); return; }
+  if(!session){ toast('Avval Google bilan kiring', true); return; }
+
+  const phone = normalizePhone($('cPhone').value);
   const name = $('cName').value.trim() || 'Mijoz';
-  const biz = $('bName').value.trim() || 'Bella Vita';
-  const link = $('gLink').value.trim() || 'g.page/r/bella-vita/review';
-  if(!phone){ alert('Telefon raqam yozing'); return; }
+  const biz = $('bName').value.trim();
+  const link = $('gLink').value.trim();
 
-  const isFree = freeUsed < 30;
-  const msg = isFree ? `SMS yuborildi (${30-freeUsed-1} ta bepul qoldi) - ${phone}` : `SMS yuborildi - ${phone} (pullik tarif)`;
-  
+  if(!phone){ toast("Telefon raqam noto'g'ri. Masalan: +998 90 123 45 67", true); return; }
+  if(!biz){ toast('Biznes nomini yozing', true); return; }
+  if(!link){ toast('Google izoh havolasini yozing', true); return; }
+
+  const btn = $('sendBtn');
+  btn.disabled = true;
+  btn.innerText = 'Yuborilmoqda...';
+
   try{
-    await fetch('/api/send-sms',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,name,bizName:biz,gLink:link})});
-  }catch(e){}
+    const res = await fetch('/api/send-sms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + session.access_token
+      },
+      body: JSON.stringify({ phone, name, bizName: biz, gLink: link })
+    });
 
-  if(isFree){
-    freeUsed++;
-    localStorage.setItem('freeUsed', freeUsed);
+    let data = {};
+    try{ data = await res.json(); }catch(e){}
+
+    if(res.status === 404){
+      toast("SMS serveri hali ulanmagan (/api/send-sms topilmadi)", true);
+    } else if(!res.ok){
+      toast(data.error || ('Xatolik: ' + res.status), true);
+    } else {
+      toast(data.message || ('SMS yuborildi: +' + phone));
+      $('cPhone').value = '';
+      refreshAuth();
+    }
+  }catch(e){
+    toast("Internet bilan muammo. Qayta urinib ko'ring.", true);
+  }finally{
+    btn.disabled = false;
+    btn.innerText = 'SMS yuborish';
   }
-
-  const s = $('success');
-  s.innerText = '✓ ' + msg;
-  s.style.display='block';
-  setTimeout(()=>s.style.display='none',4000);
-  $('cPhone').value='';
 }
 </script>
 </body>
